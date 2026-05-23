@@ -1,0 +1,351 @@
+/* style.css - Gayatri Jewellers Custom Stylesheet */
+
+/* --- Custom Variables & Reset --- */
+:root {
+    --color-primary: #D4AF37;       /* Premium Gold */
+    --color-secondary: #a0a0a0;     /* Muted Slate */
+    --color-bg-warm: #080808;       /* Deep Black */
+    --color-surface-white: #121212; /* Deep Charcoal */
+    --color-border-soft: rgba(212, 175, 55, 0.15); /* Gold outline */
+    --color-shadow-ambient: rgba(0, 0, 0, 0.6);
+}
+
+/* Base Body Style for Desktop Preview */
+body {
+    background-color: #0c0c0d; /* Deep luxury obsidian background */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+/* --- Simulated Mobile Device Frame --- */
+#phone-container {
+    position: relative;
+    width: 390px;
+    height: 844px;
+    border-radius: 40px;
+    border: 12px solid #1a1a1b; /* Thick physical phone bezel */
+    outline: 2px solid #2e2e30;   /* Outer frame highlight */
+    box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.9), 
+                inset 0 0 10px rgba(0, 0, 0, 0.6);
+    background-color: var(--color-bg-warm);
+    z-index: 10;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Screen Notch (Camera Bar) for Realistic Bezel */
+#phone-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 25px;
+    background-color: #202021;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    z-index: 100;
+}
+
+/* Hide scrollbars but keep scrolling functional */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE/Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Custom Scrollbar for the Main Content Panel */
+#app-viewport::-webkit-scrollbar {
+    width: 3px;
+}
+#app-viewport::-webkit-scrollbar-track {
+    background: transparent;
+}
+#app-viewport::-webkit-scrollbar-thumb {
+    background: rgba(119, 90, 25, 0.2);
+    border-radius: 9999px;
+}
+
+/* --- Mobile View Overrides (Standard Web View on actual phones) --- */
+@media (max-width: 767px) {
+    body {
+        background-color: var(--color-bg-warm);
+        align-items: stretch;
+    }
+    
+    #phone-container {
+        width: 100%;
+        height: 100dvh;
+        border-radius: 0;
+        border: none;
+        outline: none;
+        box-shadow: none;
+    }
+
+    #phone-container::before {
+        display: none; /* Hide camera notch on actual mobile screen */
+    }
+
+    #phone-status-bar {
+        display: none; /* Hide system-level simulated status bar on mobile browser */
+    }
+}
+
+/* --- Content Panel States & Tab Transition animations --- */
+.tab-panel {
+    display: none;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tab-panel.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Custom Components & Luxury Aesthetics --- */
+.ambient-shadow {
+    box-shadow: 0 12px 36px -8px var(--color-shadow-ambient);
+}
+
+.shadow-soft {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+}
+
+/* Safe area spacing utilities */
+.pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* Bottom Tab Bar Custom Styles */
+#phone-nav-bar {
+    height: 64px; /* Reduced for better screen allocation */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding-bottom: calc(4px + env(safe-area-inset-bottom, 0px));
+}
+
+.nav-tab {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    height: 100%;
+    color: var(--color-secondary);
+    transition: color 0.3s ease, transform 0.2s ease;
+    padding: 6px 0;
+    min-width: 0;
+}
+
+.nav-tab.active {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.nav-tab span.material-symbols-outlined {
+    font-size: 20px; /* Precise icon size */
+    display: block;
+    margin-bottom: 2px;
+}
+
+.nav-tab span.font-sans {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: block;
+}
+
+/* Dynamic Active Indicator Dot under Bottom Tab */
+.nav-tab.active::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+}
+
+/* Filter Chips styles */
+.filter-chip {
+    flex-shrink: 0;
+    font-family: 'Manrope', sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 6px 12px;
+    border-radius: 9999px;
+    border: 1px solid var(--color-border-soft);
+    background-color: var(--color-surface-white);
+    color: var(--color-secondary);
+    transition: all 0.3s ease;
+}
+
+.filter-chip.active {
+    background-color: var(--color-primary);
+    color: #080808; /* Dark contrast text */
+    border-color: var(--color-primary);
+    font-weight: 700;
+}
+
+/* Material Chips styles */
+.material-chip {
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 2px;
+}
+
+.material-chip.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+    font-weight: 700;
+}
+
+/* --- Product Cards & Layout --- */
+.product-card {
+    background-color: var(--color-surface-white);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(209, 197, 180, 0.15);
+}
+
+.product-card:active {
+    transform: scale(0.97);
+}
+
+/* Image Fade In on Load */
+.image-lazy {
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+}
+
+.image-lazy.loaded {
+    opacity: 1;
+}
+
+/* --- Detail Overlay Modal Panels --- */
+#panel-item-details {
+    transition: opacity 0.3s ease;
+}
+
+#item-details-modal {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Form inputs ghost-style styling */
+input:focus, select:focus, textarea:focus {
+    outline: none !important;
+}
+
+/* Toast Notifications styling */
+.toast-msg {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(27, 28, 28, 0.95);
+    color: #ffffff;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-family: 'Manrope', sans-serif;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: toast-fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    z-index: 1000;
+}
+
+@keyframes toast-fade-in {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.toast-msg.fade-out {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.3s ease;
+}
+
+/* --- Desktop Slideout Drawer & Overlay --- */
+#desktop-drawer {
+    width: 80%;
+    max-width: 280px;
+    background-color: var(--color-surface-white);
+    border-right: 1px solid var(--color-border-soft);
+    box-shadow: 20px 0 50px rgba(0, 0, 0, 0.4);
+    z-index: 60;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.drawer-nav-item {
+    margin: 4px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: var(--color-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Manrope', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+}
+
+.drawer-nav-item:hover {
+    background-color: rgba(212, 175, 55, 0.05);
+    color: var(--color-primary);
+}
+
+.drawer-nav-item.active {
+    background-color: rgba(212, 175, 55, 0.1);
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+.drawer-nav-item span.material-symbols-outlined {
+    font-size: 20px;
+    display: inline-block;
+}
+
+#desktop-drawer.active {
+    transform: translateX(0);
+}
+
+#drawer-overlay {
+    transition: opacity 0.4s ease;
+}
+
+#drawer-overlay.active {
+    display: block;
+    opacity: 1;
+}
