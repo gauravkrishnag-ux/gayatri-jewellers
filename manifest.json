@@ -1,0 +1,39 @@
+{
+  "name": "Gayatri Jewellers",
+  "short_name": "Gayatri",
+  "description": "Premium Jewelry Inventory Manager",
+  "id": "/gayatri-jewellers/",
+  "start_url": "/gayatri-jewellers/index.html",
+  "display": "standalone",
+  "background_color": "#F9F7F2",
+  "theme_color": "#775a19",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "banner_hero.png",
+      "type": "image/png",
+      "sizes": "1080x1920",
+      "form_factor": "narrow",
+      "label": "Gayatri Jewellers Collection Home"
+    },
+    {
+      "src": "gold_ruby_ring.png",
+      "type": "image/png",
+      "sizes": "1080x1920",
+      "form_factor": "narrow",
+      "label": "Curate & Edit Collection"
+    }
+  ]
+}
